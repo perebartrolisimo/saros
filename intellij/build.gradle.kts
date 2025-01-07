@@ -8,15 +8,15 @@ val intellijSandboxDir: String? = ext.get("intellijSandboxDir") as String?
 
 configurations {
     val testConfig by getting {}
-    val testCompile by getting {
+    val testImplementation by getting {
         extendsFrom(testConfig)
     }
 }
 
 dependencies {
-    compile(project(path = ":saros.core", configuration = "plain"))
+    implementation(project(path = ":saros.core", configuration = "plain"))
 
-    testCompile(project(path = ":saros.core", configuration = "testing"))
+    testImplementation(project(path = ":saros.core", configuration = "testing"))
 }
 
 sourceSets {

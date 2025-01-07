@@ -6,17 +6,17 @@ val versionQualifier = ext.get("versionQualifier")
 
 configurations {
     val testConfig by getting {}
-    val testCompile by getting {
+    val testImplementation by getting {
         extendsFrom(testConfig)
     }
 }
 
 dependencies {
-    compile(project(":saros.core"))
-    compile(project(":saros.server"))
-    compile("org.apache.commons:commons-collections4:4.2")
-    compile("org.eclipse.lsp4j:org.eclipse.lsp4j:0.8.1")
-    compile("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:0.8.1")
+    implementation(project(":saros.core"))
+    implementation(project(":saros.server"))
+    implementation("org.apache.commons:commons-collections4:4.2")
+    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j:0.8.1")
+    implementation("org.eclipse.lsp4j:org.eclipse.lsp4j.jsonrpc:0.8.1")
 }
 
 sourceSets {
@@ -37,7 +37,7 @@ tasks.jar {
         ))
     }
     from(
-            configurations.compile.get().map { if (it.isDirectory) it else zipTree(it) }
+            configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
     )
 
     from("src/log4j.properties")

@@ -14,14 +14,14 @@ configurations {
     val releaseDep by getting {}
 
     // Default configuration
-    val compile by getting {
+    val implementation by getting {
         extendsFrom(releaseDep)
     }
-    val testCompile by getting {
+    val testImplementation by getting {
         extendsFrom(testConfig)
     }
     val plain by creating {
-        extendsFrom(compile)
+        extendsFrom(implementation)
     }
 }
 
@@ -39,7 +39,7 @@ dependencies {
 
     releaseDep("javax.jmdns:jmdns:3.4.1")
     releaseDep("xpp3:xpp3:1.1.4c")
-    releaseDep("com.thoughtworks.xstream:xstream:1.4.19")
+    releaseDep("com.thoughtworks.xstream:xstream:1.4.21")
     releaseDep("org.gnu.inet:libidn:1.15")
 
     releaseDep(log4j2ApiVersion)
@@ -53,6 +53,9 @@ dependencies {
     releaseDep(files("libs/smackx-3.4.1.jar"))
     // Workaround until we can publish and use (without a user token) the repackaged jar in GitHub Packages
     releaseDep(rootProject.files("libs/picocontainer-2.11.2-patched_relocated.jar"))
+    
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-engine:1.10.0")
 }
 
 sourceSets {
@@ -86,4 +89,17 @@ tasks {
         add("testing", testJar)
         add("plain", plainJar)
     }
+}
+
+tasks.withType<JavaExec> {
+    jvmArgs("--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED")
+}
+
+tasks.withType<Test> {
+    jvmArgs("--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED")
+}
+
+tasks.test {
+    useJUnitPlatform()
+    jvmArgs("--add-opens", "java.base/java.util.concurrent=ALL-UNNAMED")
 }

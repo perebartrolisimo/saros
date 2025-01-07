@@ -37,7 +37,7 @@ subprojects {
      * Apply default plugins and IntelliJ module configuration
      * for all sub-projects
      */
-    
+     
     idea {
         module {
             excludeDirs.addAll(mutableListOf(file("bin"), file("lib"), file("libs")))
@@ -54,6 +54,7 @@ subprojects {
         create("releaseDep") { // contains all dependencies which has to be included into the release jar/zip
             isTransitive = false // avoid that the whole dependency tree is released
         }
+
     }
 
     configure<PmdExtension> {
@@ -152,7 +153,7 @@ subprojects {
         testConfig(log4j2Bridge)
 
         testConfig(junitVersion)
-        testConfig("org.easymock:easymock:4.0.1")
+        testConfig("org.easymock:easymock:5.5.0")
         testConfig("org.powermock:powermock-core:2.0.5")
         testConfig("org.powermock:powermock-module-junit4:2.0.5")
         testConfig("org.powermock:powermock-api-easymock:2.0.5")

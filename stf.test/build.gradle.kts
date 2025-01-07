@@ -19,7 +19,7 @@ configurations {
     val stfTestCompile by creating {
         extendsFrom(implementation, testConfig)
     }
-    val testCompile by getting {
+    val testImplementation by getting {
         extendsFrom(stfTestCompile)
     }
 }
